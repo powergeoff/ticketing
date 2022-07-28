@@ -15,7 +15,7 @@ app.set('trust proxy', true); //express is aware of proxy from nginx
 app.use(json());
 app.use(cookieSession({
   signed: false,
-  secure: true,
+  secure: process.env.NODE_ENV !== 'test', //only pass cookie in https but allow for testing in http
 }))
 
 app.use(signupRouter);

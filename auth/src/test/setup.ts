@@ -1,7 +1,15 @@
 
+//import { request } from 'express';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
+import request from 'supertest'
 import { app } from '../app';
+
+//globally scoped ONLY within the test tier or env
+//process never hits here on normal execution
+declare global {
+  function signin(): Promise<string[]>;
+}
 
 let mongo: any;
 beforeAll(async () => {
@@ -27,3 +35,18 @@ afterAll(async () => {
   await mongoose.connection.close();
   }
 );
+
+global.signin = async () => {
+  const email = 'test@test.com';
+  const password = 'password';
+
+  const response = await request(app)
+    .post('/api/users/signup')
+    .send({email,password})
+    .expect(201);
+
+  const cookie = response.get('Set-Cookie');
+
+  return cookie;
+}
+

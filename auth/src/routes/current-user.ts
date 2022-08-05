@@ -1,7 +1,7 @@
 //application cannot discern whether the jwt is valid or not
 //need a service call
 import express, {Request, Response} from 'express';
-import { currentUser } from '../middlewares/current-user';
+import { currentUser } from '@pwrgtickets/common';
 
 const router = express.Router();
 

@@ -1,30 +1,33 @@
 import mongoose from "mongoose";
 import { Password } from '../services/password';
 
-// An interface that describes the required properties for a new User
+// **ONLY FOR TypeScript An interface that describes the required properties for a new User
 interface UserAttrs {
   email: string;
   password: string;
 }
 
-// An interface that describe the props a User model has 
-interface UserModel extends mongoose.Model<UserDoc> {
-  build(attrs: UserAttrs): UserDoc;
-}
-
-//An interface that describes the properties that a User document has
+// **ONLY FOR TypeScript An interface that describes the properties that a User document has
+//INDIVIDUAL Document from the model - child
 interface UserDoc extends mongoose.Document {
   email: string;
   password: string;
 }
 
+// An interface that describe the props a User model has - ENTIRE MODEL - parent
+interface UserModel extends mongoose.Model<UserDoc> {
+  build(attrs: UserAttrs): UserDoc;
+}
+
+
+
 const userSchema = new mongoose.Schema({
   email: {
-    type: String,
+    type: String, //String is for Mongoose not Typescript
     required: true
   },
   password: {
-    type: String,
+    type: String, //String is for Mongoose not Typescript
     required: true
   }
 }, {

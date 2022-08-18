@@ -21,7 +21,7 @@ spec:
               '4222',
               '-m',
               '8222',
-              '-hbi',
+              '-hbi', #heartbeat stuff
               '5s',
               '-hbt',
               '5s',

@@ -1,7 +1,8 @@
 import express, {Request, Response} from 'express';
 import { body } from 'express-validator';
-import { requireAuth, validateRequest } from '@pwrgtickets/common';
+import { requireAuth, validateRequest } from '@pwrgtickets/common2';
 import { Ticket } from '../models/ticket';
+import { TicketCreatedPublisher } from '../events/publishers/ticket-created-publisher';
 
 const router = express.Router();
 
@@ -24,6 +25,13 @@ async (req: Request, res: Response) => {
    });
 
    await newTicket.save();
+   //publish elements from newTicket in mongoose NOT from request.body
+   new TicketCreatedPublisher(client).publish({
+    id: newTicket.id,
+    title: newTicket.title,
+    price: newTicket.price,
+    userId: newTicket.userId,
+   });
 
    res.status(201).send(newTicket);
 

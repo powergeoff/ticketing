@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import { Ticket } from '../models/ticket';
 import { body } from 'express-validator';
 
-import { validateRequest, NotFoundError, requireAuth, NotAuthorizedError } from '@pwrgtickets/common';
+import { validateRequest, NotFoundError, requireAuth, NotAuthorizedError } from '@pwrgtickets/common2';
 
 const router = express.Router();
 
